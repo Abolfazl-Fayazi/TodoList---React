@@ -3,7 +3,7 @@ import classes from "./item.module.css";
 
 //-----------------------------------------------------------------------------
 
-const Item = function ({ list, setList }) {
+const Item = function ({ list }) {
   //..................................................
 
   const checkIcon = (
@@ -43,43 +43,34 @@ const Item = function ({ list, setList }) {
     </svg>
   );
 
-  const taskText = useRef([]);
+  //..................................................
 
   //..................................................
 
-  const Delete = function (id) {
-    let newList = list;
-    newList.splice(id, 1);
-    setList([...newList]);
-    taskText.current[id].classList.remove(classes.doneTask);
-  };
+  /*const deleteButton = function (id) {
+    let neewList = list;
+    neewList.splice(id, 1);
+    setNewList([...neewList]);
+  };*/
 
-  const Check = function (id) {
+  /*const check = function (id) {
     //taskText.current[id]
     //setDoneTask(!doneTask);
-    taskText.current[id].classList.toggle(classes.doneTask);
-  };
+  };*/
 
   //..................................................
 
   return (
     <div>
-      {list.map((i, id) => (
+      {list.map((item, index) => (
         <div>
           <div className={classes.wrapper}>
-            <div
-              className={classes.task}
-              ref={(txt) => (taskText.current[id] = txt)}
-            >
-              <p className={classes.taskText}>{`${id + 1}. ${i}`}</p>
+            <div className={classes.task}>
+              <p className={classes.taskText}>{`${index+1}. ${item.task}`}</p>
             </div>
 
-            <button className={classes.check} onClick={() => Check(id)}>
-              {checkIcon}
-            </button>
-            <button className={classes.delete} onClick={() => Delete(id)}>
-              {trashIcon}
-            </button>
+            <button className={classes.check}>{checkIcon}</button>
+            <button className={classes.delete}>{trashIcon}</button>
           </div>
           <hr className={classes.line} />
         </div>

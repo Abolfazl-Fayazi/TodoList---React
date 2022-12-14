@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.css";
 
@@ -11,18 +11,9 @@ import Item from "./components/item";
 const App = function () {
   //..................................................
 
-  const [input, setInput] = useState("");
   const [list, setList] = useState([]);
 
-  //const [render, setRender] = useState(false);
-
   //..................................................
-
-  const adderButton = function (e) {
-    e.preventDefault();
-    input.trim().length !== 0 && setList([...list, input]);
-    setInput("");
-  };
 
   //const Check = function () {};
 
@@ -32,17 +23,19 @@ const App = function () {
     console.log(inputTask);
   };*/
 
+  const getTasks = (taskList) => {
+    setList(taskList);
+  };
+
   //..................................................
 
   return (
     <div>
       <Header />
-      <ItemGenerator
-        adderButton={adderButton}
-        input={input}
-        setInput={setInput}
-      />
-      <Item list={list} setList={setList} />
+      {/* {console.log(taskList)} */}
+      <ItemGenerator getTasks={getTasks} />
+      {console.log(list)}
+      <Item list={list} />
     </div>
   );
 };

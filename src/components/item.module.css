@@ -30,6 +30,13 @@
   width: 10%;
   transition: 0.3s;
 }
+.checked {
+  background-color: rgb(0, 133, 0);
+  color: white;
+  border: 0;
+  transition: 0.3s;
+  width: 10%;
+}
 .delete {
   background-color: #222;
   color: rgb(225, 0, 0);
