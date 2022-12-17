@@ -8,7 +8,7 @@ const ItemGenerator = function (props) {
   //..................................................
 
   const [input, setInput] = useState("");
-  const [item, setItem] = useState({});
+  let item = { task: input, id: uuidv4() };
   const [taskList, setTaskList] = useState([]);
 
   //..................................................
@@ -25,21 +25,28 @@ const ItemGenerator = function (props) {
     setTaskList([...taskList, item])
   }*/
 
-  const adderButton = async function (e) {
-    e.preventDefault();
-    setItem({ task: input, id: uuidv4() });
+  const adderButton = function (e) {
+
     setTaskList([...taskList, item]);
+  };
+
+  useEffect(() => {
     props.getTasks(taskList);
     setInput("");
-  };
+  }, [taskList.length]);
+
+  useEffect(() => {
+    setTaskList(props.changedTodoList);
+    props.getTasks(taskList);
+  }, [props.changedTodoList]);
+
 
   //..................................................
 
   return (
     <div>
-      <form className={classes.wrapper}>
+      <div className={classes.wrapper}>
         <input
-          ref={(inputBox) => inputBox && inputBox.focus()}
           autoFocus
           type="text"
           className={classes.input}
@@ -50,7 +57,8 @@ const ItemGenerator = function (props) {
         <button className={classes.button} onClick={adderButton}>
           +
         </button>
-      </form>
+        {console.log(taskList)}
+      </div>
       <hr className={classes.line} />
     </div>
   );

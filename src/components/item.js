@@ -3,7 +3,7 @@ import classes from "./item.module.css";
 
 //-----------------------------------------------------------------------------
 
-const Item = function ({ list }) {
+const Item = function (props) {
   //..................................................
 
   const checkIcon = (
@@ -44,14 +44,16 @@ const Item = function ({ list }) {
   );
 
   //..................................................
-
+  const [changedTodoList, setChangedTodoList] = useState([]);
   //..................................................
 
-  /*const deleteButton = function (id) {
-    let neewList = list;
-    neewList.splice(id, 1);
-    setNewList([...neewList]);
-  };*/
+  const deleteButton = function (item) {
+    setChangedTodoList(props.todoList.filter((i) => i.id !== item.id));
+  };
+
+  useEffect(() => {
+    props.getChangedTodoList(changedTodoList);
+  }, [changedTodoList]);
 
   /*const check = function (id) {
     //taskText.current[id]
@@ -62,15 +64,19 @@ const Item = function ({ list }) {
 
   return (
     <div>
-      {list.map((item, index) => (
+      {props.todoList.map((item, index) => (
         <div>
           <div className={classes.wrapper}>
             <div className={classes.task}>
-              <p className={classes.taskText}>{`${index+1}. ${item.task}`}</p>
+              <p className={classes.taskText}>{`${index + 1}. ${item.task}`}</p>
             </div>
-
             <button className={classes.check}>{checkIcon}</button>
-            <button className={classes.delete}>{trashIcon}</button>
+            <button
+              className={classes.delete}
+              onClick={() => deleteButton(item)}
+            >
+              {trashIcon}
+            </button>
           </div>
           <hr className={classes.line} />
         </div>

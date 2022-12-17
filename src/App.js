@@ -11,7 +11,8 @@ import Item from "./components/item";
 const App = function () {
   //..................................................
 
-  const [list, setList] = useState([]);
+  const [todoList, setTodoList] = useState([]);
+  const [newTodoList, setNewTodoList] = useState([]);
 
   //..................................................
 
@@ -24,7 +25,11 @@ const App = function () {
   };*/
 
   const getTasks = (taskList) => {
-    setList(taskList);
+    setTodoList(taskList);
+  };
+
+  const getChangedTodoList = (changedTodoList) => {
+    setNewTodoList(changedTodoList);
   };
 
   //..................................................
@@ -33,9 +38,13 @@ const App = function () {
     <div>
       <Header />
       {/* {console.log(taskList)} */}
-      <ItemGenerator getTasks={getTasks} />
-      {console.log(list)}
-      <Item list={list} />
+      <ItemGenerator getTasks={getTasks} changedTodoList={newTodoList} />
+      {/* {console.log(list)} */}
+      <Item
+        todoList={todoList}
+        setTodoList={setTodoList}
+        getChangedTodoList={getChangedTodoList}
+      />
     </div>
   );
 };
