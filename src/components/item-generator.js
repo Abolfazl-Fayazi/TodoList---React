@@ -26,7 +26,6 @@ const ItemGenerator = function (props) {
   }*/
 
   const adderButton = function (e) {
-
     setTaskList([...taskList, item]);
   };
 
@@ -39,7 +38,6 @@ const ItemGenerator = function (props) {
     setTaskList(props.changedTodoList);
     props.getTasks(taskList);
   }, [props.changedTodoList]);
-
 
   //..................................................
 
