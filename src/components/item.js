@@ -44,7 +44,18 @@ const Item = function (props) {
   );
 
   //..................................................
-  const [changedTodoList, setChangedTodoList] = useState([]);
+
+  const [changedTodoList, setChangedTodoList] = useState(props.todoList);
+
+  const [checkList, setCheckList] = useState([]);
+
+  //..................................................
+
+  useEffect(() => {
+    setChangedTodoList(props.todoList);
+    console.log(changedTodoList);
+  }, [props.todoList.length]);
+
   //..................................................
 
   const deleteButton = function (item) {
@@ -55,10 +66,32 @@ const Item = function (props) {
     props.getChangedTodoList(changedTodoList);
   }, [changedTodoList]);
 
-  /*const check = function (id) {
-    //taskText.current[id]
-    //setDoneTask(!doneTask);
-  };*/
+  //..................................................
+
+  const checkButton = (item) => {
+    /*if (changedTodoList.length === 0) {
+      props.todoList.map((i) =>
+        i.id === item.id ? (i.complete = !i.complete) : null
+      );
+    
+    setChangedTodoList(props.todoList);
+      console.log(changedTodoList);
+    } */
+
+    changedTodoList.map((i) =>
+      i.id === item.id ? (i.complete = !i.complete) : null
+    );
+    setChangedTodoList(changedTodoList);
+    props.getChangedTodoList(changedTodoList);
+    console.log(changedTodoList);
+    setCheckList(changedTodoList.map((i) => i.complete));
+    console.log(checkList);
+  };
+
+  useEffect(() => {
+    props.getChangedTodoList(changedTodoList);
+    console.log(changedTodoList);
+  }, [changedTodoList]);
 
   //..................................................
 
@@ -68,9 +101,13 @@ const Item = function (props) {
         <div>
           <div className={classes.wrapper}>
             <div className={classes.task}>
-              <p className={classes.taskText}>{`${index + 1}. ${item.task}`}</p>
+              <p
+                className={item.complete ? classes.checkedTask : classes.task}
+              >{`${index + 1}. ${item.task}`}</p>
             </div>
-            <button className={classes.check}>{checkIcon}</button>
+            <button className={item.complete ? classes.checked : classes.check} onClick={() => checkButton(item)}>
+              {checkIcon}
+            </button>
             <button
               className={classes.delete}
               onClick={() => deleteButton(item)}

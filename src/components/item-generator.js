@@ -8,7 +8,7 @@ const ItemGenerator = function (props) {
   //..................................................
 
   const [input, setInput] = useState("");
-  let item = { task: input, id: uuidv4() };
+  let item = { task: input, id: uuidv4(), complete: false };
   const [taskList, setTaskList] = useState([]);
 
   //..................................................
@@ -51,6 +51,11 @@ const ItemGenerator = function (props) {
           placeholder="Enter a new task . . ."
           onChange={inputChanging}
           value={input}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              adderButton();
+            }
+          }}
         />
         <button className={classes.button} onClick={adderButton}>
           +

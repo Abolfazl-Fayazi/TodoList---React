@@ -9,9 +9,11 @@
   background-color: #222;
   padding-left: 0.5rem;
   width: 80%;
+  font-size: large;
+
 }
-.doneTask {
-  color: gray;
+.checkedTask {
+  color: #555;
   font-family: "Times New Roman", Times, serif;
   font-weight: lighter;
   background-color: #222;
@@ -19,9 +21,6 @@
   width: 80%;
 }
 
-.taskText {
-  font-size: large;
-}
 
 .check {
   background-color: #222;
