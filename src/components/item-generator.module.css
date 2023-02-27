@@ -19,7 +19,7 @@
   
 }
 
-.button {
+.addButton {
   width: 20%;
   height: 4rem;
   background-color: #222;
@@ -32,7 +32,7 @@
   transition: 0.3s;
 }
 
-.button:hover {
+.addButton:hover {
   width: 20%;
   height: 4rem;
   background-color: rgb(0, 119, 255);
@@ -44,6 +44,31 @@
   align-items: center;
   border: 0;
 }
+/*.editButton {
+  width: 20%;
+  height: 4rem;
+  background-color: #222;
+  color: whitesmoke;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  transition: 0.3s;
+}
+
+.editButton:hover {
+  width: 20%;
+  height: 4rem;
+  background-color: blueviolet;
+  transition: 0.3s;
+  color: whitesmoke;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+}*/
 .line{
   border: 0;
   background-color: white;

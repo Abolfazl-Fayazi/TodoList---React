@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.css";
 
@@ -24,6 +24,7 @@ const App = function () {
     console.log(inputTask);
   };*/
 
+ 
   const getTasks = (taskList) => {
     setTodoList(taskList);
   };
@@ -32,18 +33,30 @@ const App = function () {
     setNewTodoList(changedTodoList);
   };
 
+  /*const getEditingItem = () => {
+    setEditingItem();
+  };*/
+
   //..................................................
 
   return (
     <div>
       <Header />
       {/* {console.log(taskList)} */}
-      <ItemGenerator getTasks={getTasks} changedTodoList={newTodoList} />
-      {/* {console.log(list)} */}
+      <ItemGenerator
+        getTasks={getTasks}
+        changedTodoList={newTodoList}
+        setChangedTodoList={setNewTodoList}
+        setNewTodoList={setNewTodoList}
+        newTodoList={newTodoList}
+        //getEditingItem={getEditingItem}
+      />
+
       <Item
         todoList={todoList}
         setTodoList={setTodoList}
         getChangedTodoList={getChangedTodoList}
+ 
       />
     </div>
   );

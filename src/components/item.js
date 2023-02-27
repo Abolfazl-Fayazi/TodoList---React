@@ -43,11 +43,29 @@ const Item = function (props) {
     </svg>
   );
 
+  const editIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="18" y1="2" x2="22" y2="6"></line>
+      <path d="M7.5 20.5 19 9l-4-4L3.5 16.5 2 22z"></path>
+    </svg>
+  );
+
   //..................................................
 
   const [changedTodoList, setChangedTodoList] = useState(props.todoList);
-
   const [checkList, setCheckList] = useState([]);
+  const [editingItem, setEditingItem] = useState(null);
+  const [itemInput, setItemInput] = useState();
 
   //..................................................
 
@@ -55,6 +73,10 @@ const Item = function (props) {
     setChangedTodoList(props.todoList);
     console.log(changedTodoList);
   }, [props.todoList.length]);
+
+  const itemChanging = function (e) {
+    setItemInput(e.target.value);
+  };
 
   //..................................................
 
@@ -95,17 +117,112 @@ const Item = function (props) {
 
   //..................................................
 
+  const editButton = (item) => {
+    /*changedTodoList.map((i) =>
+      i.id === item.id
+        ? (i.editingMode === true,
+          setEditingItem(i),
+          setItemInput(itemInput),
+          console.log(i))
+        : (i.editingMode = false)
+    );*/
+
+    changedTodoList.map((i) => {
+      if (i.id === item.id && i.editingMode === false) {
+        console.log(i);
+        i.editingMode = true;
+        setEditingItem(i);
+        setItemInput(i.task);
+      } else if (i.id === item.id && i.editingMode === true) {
+        item.task = itemInput;
+        i.editingMode = false;
+        setEditingItem(null);
+      } else if (i.id !== item.id) {
+        i.editingMode = false;
+      }
+    });
+    /*changedTodoList.map((i) =>
+      i.id === item.id ? setItemInput(i.task) : null
+    );*/
+
+    /*if (!editingItem) {
+      let a = changedTodoList.find((i) => (i.editingMode = true ? i : null));
+      console.log(a);
+      setItemInput(a.task);
+    } else {
+      item.task = itemInput;
+      setEditingItem(null);
+      changedTodoList.map((i) =>
+        i.id === item.id ? (i.editingMode = false) : null
+      );
+    }*/
+
+    /*changedTodoList.map((i) => {
+      if (!i.editingMode && i.id === item.id) {
+        console.log(item.task);
+
+        //i.task = i.editingMode ? itemInput : i.task;91
+      } else if (i.editingMode && i.id === item.id) {
+        setItemInput(i.task);
+      }
+    });*/
+
+    console.log(itemInput);
+
+    console.log(editingItem);
+
+    setChangedTodoList(changedTodoList);
+    props.getChangedTodoList(changedTodoList);
+    console.log(changedTodoList);
+    /*setEditList(changedTodoList.map((i) => i.editingMode));
+    console.log(editList);*/
+    //props.setEditingItem(null)
+
+    /*changedTodoList.map((i) => {
+      i.id === item.id
+        ? (i.editingMode = !i.editingMode)
+        : (i.editingMode = false);
+    });
+
+    setChangedTodoList(changedTodoList);
+    props.getChangedTodoList(changedTodoList);
+    console.log(changedTodoList);*/
+  };
+
+  //..................................................
+
+  //..................................................
+
   return (
     <div>
       {props.todoList.map((item, index) => (
         <div>
           <div className={classes.wrapper}>
             <div className={classes.task}>
-              <p
-                className={item.complete ? classes.checkedTask : classes.task}
-              >{`${index + 1}. ${item.task}`}</p>
+              {!item.editingMode ? (
+                <p
+                  className={item.complete ? classes.checkedTask : classes.task}
+                >{`${index + 1}. ${item.task}`}</p>
+              ) : (
+                <input
+                  className={classes.editingModeTask}
+                  value={itemInput}
+                  onChange={itemChanging}
+                />
+              )}
             </div>
-            <button className={item.complete ? classes.checked : classes.check} onClick={() => checkButton(item)}>
+
+            <button
+              className={item.editingMode ? classes.editingMode : classes.edit}
+              onClick={() => editButton(item)}
+            >
+              {editIcon}
+            </button>
+
+            <button
+              className={item.complete ? classes.checked : classes.check}
+              onClick={() => checkButton(item)}
+            >
               {checkIcon}
             </button>
             <button
